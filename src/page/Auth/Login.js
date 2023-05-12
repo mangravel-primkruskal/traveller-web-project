@@ -58,7 +58,8 @@ function Login() {
         <button
           onClick={() => (window.location.href = "/dashboard")}
           type="button"
-          class="btn btn-primary btn-block mb-4"
+          class="btn btn-block mb-4"
+          style={{backgroundColor:"#4B9D3D"}}
         >
           Giriş Yap
         </button>

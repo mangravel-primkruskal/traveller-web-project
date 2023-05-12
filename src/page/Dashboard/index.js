@@ -4,7 +4,7 @@ export default function Dashboard() {
   return (
     <>
       <div class="row">
-        <div class="col-md-4 " style={{ backgroundColor: "#604a72" }}>
+        <div class="col-md-4 " style={{ backgroundColor: "#4B9D3D" }}>
           <div class="card-body">
             <h5 class="card-title text-white">Toplam Kullanıcı Sayısı</h5>
             <p class="card-text text-white">1000</p>
@@ -16,7 +16,7 @@ export default function Dashboard() {
             <p class="card-text text-white">1000</p>
           </div>
         </div>
-        <div class="col-md-4" style={{ backgroundColor: "#604c3a" }}>
+        <div class="col-md-4" style={{ backgroundColor: "#4B9D3D" }}>
           <div class="card-body">
             <h5 class="card-title text-white">Toplam Ziyaret Sayısı</h5>
             <p class="card-text text-white">1000</p>

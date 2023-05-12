@@ -22,7 +22,7 @@ const ASide = () => {
         style={{
           width: "100%",
           padding: 10,
-          backgroundColor: "#0E131F",
+          backgroundColor: "#4B7D3D",
           zIndex: 100,
         }}
       >
@@ -49,7 +49,7 @@ const ASide = () => {
       <nav
         className="col-sm-3 col-md-2 d-none d-sm-block sidebar"
         style={{
-          backgroundColor: "#1C2331",
+          backgroundColor: "#C7E8CA",
           height: "100%",
           position: "fixed",
 
@@ -58,14 +58,14 @@ const ASide = () => {
       >
         <div className="sidebar-sticky">
           <ul className="nav flex-column">
-            <li className="nav-item" style={{ backgroundColor: "#3E445B" }}>
+            <li className="nav-item" style={{ backgroundColor: "#4B9D3D" }}>
               <NavLink className="nav-link active text-white" to="/dashboard">
                 Anasayfa
               </NavLink>
             </li>
             <li
               className="nav-item text-white"
-              style={{ backgroundColor: "#3E445B", marginTop: 10 }}
+              style={{ backgroundColor: "#4B9D3D", marginTop: 10 }}
             >
               <a className="nav-link text-white" href="/UserManagement">
                 Kullanıcı Yönetimi
@@ -73,7 +73,7 @@ const ASide = () => {
             </li>
             <li
               className="nav-item"
-              style={{ backgroundColor: "#3E445B", marginTop: 10 }}
+              style={{ backgroundColor: "#4B9D3D", marginTop: 10 }}
             >
               <a
                 className="nav-link text-white
@@ -85,7 +85,7 @@ const ASide = () => {
             </li>
             <li
               className="nav-item text-white"
-              style={{ backgroundColor: "#3E445B", marginTop: 10 }}
+              style={{ backgroundColor: "#4B9D3D", marginTop: 10 }}
             >
               <a className="nav-link text-white" href="/login">
                 Çıkış
