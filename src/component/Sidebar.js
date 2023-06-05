@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 const ASide = () => {
   const [hamburger, setHamburger] = useState(true);
+
+  const [user, setUser] = useState([]);
 
   function toggleSidebar() {
     if (hamburger) {
@@ -15,6 +17,14 @@ const ASide = () => {
       setHamburger(!hamburger);
     }
   }
+
+  useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem("user")));
+  }, [user.role === undefined]);
+  useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem("user")));
+  }, []);
+
   return (
     <div className="row">
       <div
@@ -55,22 +65,30 @@ const ASide = () => {
 
           zIndex: 99,
         }}
-      >
+      >{user.role}
         <div className="sidebar-sticky">
           <ul className="nav flex-column">
-            <li className="nav-item" style={{ backgroundColor: "#4B9D3D" }}>
-              <NavLink className="nav-link active text-white" to="/dashboard">
-                Anasayfa
-              </NavLink>
-            </li>
-            <li
-              className="nav-item text-white"
-              style={{ backgroundColor: "#4B9D3D", marginTop: 10 }}
-            >
-              <a className="nav-link text-white" href="/UserManagement">
-                Kullanıcı Yönetimi
-              </a>
-            </li>
+            {user.role == "admin" && (
+              <>
+                <li className="nav-item" style={{ backgroundColor: "#4B9D3D" }}>
+                  <a
+                    className="nav-link active text-white"
+                    href="/Dashboard"
+                  >
+                    Anasayfa
+                  </a>
+                </li>
+                <li
+                  className="nav-item text-white"
+                  style={{ backgroundColor: "#4B9D3D", marginTop: 10 }}
+                >
+                  <a className="nav-link text-white" href="/UserManagement">
+                    Kullanıcı Yönetimi
+                  </a>
+                </li>
+              </>
+            )}
+
             <li
               className="nav-item"
               style={{ backgroundColor: "#4B9D3D", marginTop: 10 }}

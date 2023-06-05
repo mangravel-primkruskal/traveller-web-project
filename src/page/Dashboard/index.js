@@ -1,6 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+
+import axios from "axios";
 
 export default function Dashboard() {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    let config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: "http://127.0.0.1:5000/recentdata",
+      headers: {},
+    };
+
+    axios
+      .request(config)
+      .then((response) => {
+        setData(response.data.recent_places);
+        console.log(response.data.recent_places);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
   return (
     <>
       <div class="row">
@@ -31,7 +54,7 @@ export default function Dashboard() {
                 className="card-title"
                 style={{ fontWeight: "600", fontSize: 27, float: "left" }}
               >
-                Son Eklenen Kullanıcılar{" "}
+                Son Eklenen Mekanlar{" "}
               </h5>
               <div
                 style={{
@@ -42,9 +65,9 @@ export default function Dashboard() {
                   textAlign: "end",
                 }}
               >
-                <button type="submit" className="btn btn-primary">
+                <a href="/VenueManagement" className="btn btn-primary">
                   Yeni Mekan Ekle
-                </button>
+                </a>
               </div>
               <table className="table">
                 <thead>
@@ -57,27 +80,15 @@ export default function Dashboard() {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>Xxx Kafe</td>
-                    <td>Abc mahallesi xx sokak</td>
-                    <td>555-555-5555</td>
-                    <td>2023-04-01</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>Xxx Kafe</td>
-                    <td>Abc mahallesi xx sokak</td>
-                    <td>555-555-5555</td>
-                    <td>2023-04-01</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>Xxx Kafe</td>
-                    <td>Abc mahallesi xx sokak</td>
-                    <td>555-555-5555</td>
-                    <td>2023-04-01</td>
-                  </tr>
+                  {data.map((item, index) => (
+                    <tr>
+                      <td>{index + 1}</td>
+                      <td>{item.place_name}</td>
+                      <td>{item.place_address}</td>
+                      <td>{item.phone_number}</td>
+                      <td>{item.registration_date}</td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
@@ -101,9 +112,9 @@ export default function Dashboard() {
                   textAlign: "end",
                 }}
               >
-                <button type="submit" className="btn btn-warning">
-                  Yeni Mekan Ekle
-                </button>
+                <a href="/UserManagement" className="btn btn-warning">
+                  Yeni Kullanıcı Ekle
+                </a>
               </div>
               <table className="table">
                 <thead>

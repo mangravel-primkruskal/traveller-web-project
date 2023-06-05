@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios";
 
 function UserForm() {
   const [username, setUsername] = useState("");
@@ -8,9 +9,31 @@ function UserForm() {
   const [city, setCity] = useState("");
   const [district, setDistrict] = useState("");
 
+  const [searchText, setSearchText] = useState("");
+  const [resultData, setResultData] = useState([]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     // burada form verilerini işleyebilirsiniz
+  };
+
+  const searchUser = () => {
+    let config = {
+      method: "post",
+      maxBodyLength: Infinity,
+      url: "http://127.0.0.1:5000/searchuser/" + searchText,
+      headers: {},
+    };
+
+    axios
+      .request(config)
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
+        setResultData(response?.data?.users);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -94,6 +117,10 @@ function UserForm() {
           <input
             type="text"
             className="form-control"
+            onChange={(text) => {
+              setSearchText(text.target.value);
+              searchUser();
+            }}
             placeholder="Kullanıcı ara"
           />
         </div>
@@ -109,30 +136,16 @@ function UserForm() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>user1</td>
-              <td>user1@example.com</td>
-              <td>555-555-5555</td>
-              <td>Istanbul</td>
-              <td>Beyoglu</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>user2</td>
-              <td>user2@example.com</td>
-              <td>555-555-5555</td>
-              <td>Izmir</td>
-              <td>Karsiyaka</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>user3</td>
-              <td>user3@example.com</td>
-              <td>555-555-5555</td>
-              <td>Ankara</td>
-              <td>Kecioren</td>
-            </tr>
+            {resultData.map((item) => (
+              <tr>
+                <th scope="row">1</th>
+                <td>{item.username}</td>
+                <td>{item.email}</td>
+                <td>{item.phone}</td>
+                <td>{item.city}</td>
+                <td>{item.county}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

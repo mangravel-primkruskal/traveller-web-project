@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 const VenueManagement = () => {
   const [mevlanlar, setMevlanlar] = useState([
@@ -38,10 +39,76 @@ const VenueManagement = () => {
   const [sehir, setSehir] = useState("");
   const [ilce, setIlce] = useState("");
   const [sesDuzeyi, setSesDuzeyi] = useState("");
-  const [musteriKategorisi, setMusteriKategorisi] = useState("");
+  const [mekanAdresi, setMekanAdresi] = useState("");
   const [urunKategorisi, setUrunKategorisi] = useState("");
   const [mekanKategorisi, setMekanKategorisi] = useState("");
   const [adres, setAdres] = useState("");
+
+  const [update, setUpdate] = useState({
+    update: false,
+    data: {
+      place_type: "",
+      place_name: "",
+      place_address: "",
+      place_lat: "",
+      place_long: "",
+    },
+  });
+
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    let config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: "http://127.0.0.1:5000/recentdata",
+      headers: {},
+    };
+
+    axios
+      .request(config)
+      .then((response) => {
+        setData(response.data.recent_places);
+        console.log(response.data.recent_places);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  const addNewVenue = () => {
+    if (update.update) return console.log(update);
+
+    let data = JSON.stringify({
+      place_type: mekanKategorisi,
+      place_name: mekanAdi,
+      place_address: mekanAdresi,
+      place_lat: "123",
+      place_long: "123",
+    });
+
+    let config = {
+      method: "post",
+      maxBodyLength: Infinity,
+      url: "http://127.0.0.1:5000/createplace",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+
+    axios
+      .request(config)
+      .then((response) => {
+        if (response.data.message == "Mekan basarili sekilde kaydedildi.") {
+          alert("Başarılı");
+          window.location.reload();
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <div className="row">
@@ -95,18 +162,6 @@ const VenueManagement = () => {
               onChange={(e) => setSesDuzeyi(e.target.value)}
             />
           </div>
-          <div className="mb-3">
-            <label htmlFor="musteri-kategorisi" className="form-label">
-              Müşteri Kategorisi
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="musteri-kategorisi"
-              value={musteriKategorisi}
-              onChange={(e) => setMusteriKategorisi(e.target.value)}
-            />
-          </div>
           <div class="form-group">
             <label for="venueImage">Mekan Resmi</label>
             <div class="input-group">
@@ -139,6 +194,52 @@ const VenueManagement = () => {
             Yeni Mekan Ekle
           </button>
         </form>
+        {/* <form>
+          <div className="mb-3">
+            <label htmlFor="mekan-adi" className="form-label">
+              Mekan Adı
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="mekan-adi"
+              value={mekanAdi}
+              onChange={(e) => setMekanAdi(e.target.value)}
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="musteri-kategorisi" className="form-label">
+              Mekan Adresi
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="musteri-kategorisi"
+              value={mekanAdresi}
+              onChange={(e) => setMekanAdresi(e.target.value)}
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="musteri-kategorisi" className="form-label">
+              Mekan Tipi
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="musteri-kategorisi"
+              value={mekanKategorisi}
+              onChange={(e) => setMekanKategorisi(e.target.value)}
+            />
+          </div>
+
+          <button
+            onClick={() => addNewVenue()}
+            type="button"
+            class="btn btn-primary"
+          >
+            Yeni Mekan Ekle
+          </button>
+        </form> */}
       </div>
       <div className="col-sm-8">
         <table className="table">
@@ -153,16 +254,20 @@ const VenueManagement = () => {
             </tr>
           </thead>
           <tbody>
-            {mevlanlar.map((mekan) => (
-              <tr key={mekan.id}>
-                <td>{mekan.mekanAdi}</td>
-                <td>{mekan.sehir}</td>
-                <td>{mekan.ilce}</td>
-
-                <td>{mekan.adres}</td>
+            {data.map((item, index) => (
+              <tr>
+                <td>{index + 1}</td>
+                <td>{item.place_name}</td>
+                <td>{item.place_address}</td>
+                <td>{item.phone_number}</td>
                 <td>
                   <button className="btn btn-sm btn-danger">Sil</button>{" "}
-                  <button className="btn btn-sm btn-primary">Düzenle</button>
+                  <button
+                    onClick={() => setUpdate({ update: true, data: item })}
+                    className="btn btn-sm btn-primary"
+                  >
+                    Düzenle
+                  </button>
                 </td>
               </tr>
             ))}
