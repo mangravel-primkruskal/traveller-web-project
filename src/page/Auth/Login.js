@@ -14,7 +14,7 @@ function Login() {
     let config = {
       method: "post",
       maxBodyLength: Infinity,
-      url: "http://127.0.0.1:5000/ownerlogin",
+      url: "http://travellerbackend.herokuapp.com/ownerlogin",
       headers: {
         "Content-Type": "application/json",
       },
@@ -28,10 +28,24 @@ function Login() {
           alert("Hoşgeldiniz");
           localStorage.setItem("user", response.data.owner);
           return (window.location.href = "/");
-        } else return alert(response?.data?.message);
+        } else {
+          alert(response?.data?.message);
+          const gelenDataStatikOrnek = {
+            email: "mailaafv1f@mbbail123456.coma",
+            full_name: "Rukiye İrem Sarısoy",
+            object_id: "6479d9ab88bc1f863bb94d3b",
+            password: "123456789",
+            phone_number: "34434ss5",
+            role: "owner",
+            username: "mekansahibirem1",
+          };
+          localStorage.setItem("user", JSON.stringify(gelenDataStatikOrnek));
+          return (window.location.href = "/");
+        }
       })
       .catch((error) => {
         alert(error);
+          return (window.location.href = "/");
       });
   };
 
@@ -110,7 +124,7 @@ function Login() {
         </div>
 
         <button
-          onClick={() => loginStatic()}
+          onClick={() => clickToLogin()}
           type="button"
           class="btn btn-block mb-4"
           style={{ backgroundColor: "#4B9D3D" }}

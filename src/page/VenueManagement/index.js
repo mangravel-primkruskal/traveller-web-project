@@ -61,7 +61,7 @@ const VenueManagement = () => {
     let config = {
       method: "get",
       maxBodyLength: Infinity,
-      url: "http://127.0.0.1:5000/recentdata",
+      url: "https://travellerbackend.herokuapp.com/recentdata",
       headers: {},
     };
 
@@ -90,7 +90,7 @@ const VenueManagement = () => {
     let config = {
       method: "post",
       maxBodyLength: Infinity,
-      url: "http://127.0.0.1:5000/createplace",
+      url: "https://travellerbackend.herokuapp.com/createplace",
       headers: {
         "Content-Type": "application/json",
       },

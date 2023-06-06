@@ -21,7 +21,7 @@ function UserForm() {
     let config = {
       method: "post",
       maxBodyLength: Infinity,
-      url: "http://127.0.0.1:5000/searchuser/" + searchText,
+      url: "http://travellerbackend.herokuapp.com/searchuser/" + searchText,
       headers: {},
     };
 

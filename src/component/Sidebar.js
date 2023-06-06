@@ -6,6 +6,17 @@ const ASide = () => {
 
   const [user, setUser] = useState([]);
 
+  useEffect(() => {
+    if (!localStorage.getItem("user")) {
+      window.location.href = "/login";
+    }
+  }, [user]);
+
+  const clickQuit = () => {
+    localStorage.removeItem("user");
+    window.location.reload();
+  };
+
   function toggleSidebar() {
     if (hamburger) {
       var sidebar = document.querySelector(".sidebar");
@@ -65,16 +76,14 @@ const ASide = () => {
 
           zIndex: 99,
         }}
-      >{user.role}
+      >
+        {user.role}
         <div className="sidebar-sticky">
           <ul className="nav flex-column">
             {user.role == "admin" && (
               <>
                 <li className="nav-item" style={{ backgroundColor: "#4B9D3D" }}>
-                  <a
-                    className="nav-link active text-white"
-                    href="/Dashboard"
-                  >
+                  <a className="nav-link active text-white" href="/Dashboard">
                     Anasayfa
                   </a>
                 </li>
@@ -105,7 +114,7 @@ const ASide = () => {
               className="nav-item text-white"
               style={{ backgroundColor: "#4B9D3D", marginTop: 10 }}
             >
-              <a className="nav-link text-white" href="/login">
+              <a className="nav-link text-white" onClick={() => clickQuit()}>
                 Çıkış
               </a>
             </li>

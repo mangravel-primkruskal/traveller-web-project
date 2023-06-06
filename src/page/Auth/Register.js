@@ -37,7 +37,7 @@ function Register() {
     let config = {
       method: "post",
       maxBodyLength: Infinity,
-      url: "http://127.0.0.1:5000//ownerregister",
+      url: "https://travellerbackend.herokuapp.com//ownerregister",
       headers: {
         "Content-Type": "application/json",
       },
@@ -57,6 +57,7 @@ function Register() {
       })
       .catch((error) => {
         alert(error);
+        return (window.location.href = "/login");
       });
   };
 
