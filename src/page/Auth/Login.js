@@ -25,6 +25,7 @@ function Login() {
     axios
       .request(config)
       .then((response) => {
+        console.log("yanit?",response.data)
         if (response?.data?.message == "Login basarili") {
           alert("Hoşgeldiniz");
           localStorage.setItem("user", response.data.owner);

@@ -1,20 +1,20 @@
 import React, { useState } from "react";
 import axios from "axios";
 function Register() {
-  const [name, setName] = useState("ruki");
-  const [address, setAddress] = useState("adres ruki");
-  const [city, setCity] = useState("sehiruki");
-  const [district, setDistrict] = useState("ilceruki");
-  const [category, setCategory] = useState("kategoriruki");
-  const [mekanIsmi, setMekan] = useState("mekan irem");
-  const [sesDuzey, setSesDuzey] = useState("ses12");
-  const [musteriCategory, setMusteriCategory] = useState("musterikatego");
-  const [urunCategory, setUrunCategory] = useState("urunkategori");
-  const [username, setUsername] = useState("irem");
+  const [name, setName] = useState("Rukiye İrem Sarısoy");
+  const [address, setAddress] = useState("Bahçelievler Mah. Etimesgut");
+  const [city, setCity] = useState("Ankara");
+  const [district, setDistrict] = useState("Etimesgut");
+  const [category, setCategory] = useState("Restoran");
+  const [mekanIsmi, setMekan] = useState("Rukiyenin Gözlemeleri");
+  const [sesDuzey, setSesDuzey] = useState("Orta");
+  const [musteriCategory, setMusteriCategory] = useState("Herkes");
+  const [urunCategory, setUrunCategory] = useState("Fırın");
+  const [username, setUsername] = useState("rukigozleme");
   const [password, setPassword] = useState("123456789Aa");
-  const [phone_number, setPhone_Number] = useState("05355555555");
+  const [phone_number, setPhone_Number] = useState("0507084993");
   const [placeType, setPlaceType] = useState("Restoran");
-  const [email, setEmail] = useState("relslslslsllslls@g.com");
+  const [email, setEmail] = useState("testruki@g.com");
 
   const clickToRegister = () => {
     let data = JSON.stringify({
