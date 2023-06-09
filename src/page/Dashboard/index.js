@@ -6,11 +6,14 @@ export default function Dashboard() {
   const [data, setData] = useState([]);
   const [user, setUser] = useState([]);
 
+  const [userList, setUserList] = useState([]);
+
   useEffect(() => {
     let config = {
       method: "get",
       maxBodyLength: Infinity,
-      url: "https://travellerbackend.herokuapp.com/recentdata",
+      //url: "https://travellerbackend.herokuapp.com/recentdata",
+      url: "http://127.0.0.1:5000/recentdata",
       headers: {},
     };
 
@@ -18,7 +21,8 @@ export default function Dashboard() {
       .request(config)
       .then((response) => {
         setData(response.data.recent_places);
-        console.log(response.data.recent_places);
+        console.log(response.data);
+        setUserList(response.data.recent_users);
       })
       .catch((error) => {
         console.log(error);
@@ -138,6 +142,15 @@ export default function Dashboard() {
                     </tr>
                   </thead>
                   <tbody>
+                  {userList.map((item1, index1) => (
+                    <tr>
+                      <td>{index1 + 1}</td>
+                      <td>{item1.full_name}</td>
+                      <td>{item1.email}</td>
+                      <td>{item1.phone}</td>
+                      <td>{item1.registration_date}</td>
+                    </tr>
+                  ))}
                     <tr>
                       <td>1</td>
                       <td>John Doe</td>

@@ -14,7 +14,8 @@ function Login() {
     let config = {
       method: "post",
       maxBodyLength: Infinity,
-      url: "http://travellerbackend.herokuapp.com/ownerlogin",
+      //url: "https://travellerbackend.herokuapp.com/ownerlogin",
+      url: "http://127.0.0.1:5000/ownerlogin",
       headers: {
         "Content-Type": "application/json",
       },
@@ -36,7 +37,7 @@ function Login() {
             object_id: "6479d9ab88bc1f863bb94d3b",
             password: "123456789",
             phone_number: "34434ss5",
-            role: "owner",
+            role: "admin",
             username: "mekansahibirem1",
           };
           localStorage.setItem("user", JSON.stringify(gelenDataStatikOrnek));

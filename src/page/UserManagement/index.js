@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 function UserForm() {
@@ -11,18 +11,45 @@ function UserForm() {
 
   const [searchText, setSearchText] = useState("");
   const [resultData, setResultData] = useState([]);
+  const[userList,setUserList]=useState([]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // burada form verilerini işleyebilirsiniz
+   
   };
+
+  useEffect(() => {
+    let config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      //url: "https://travellerbackend2.herokuapp.com/getallusers",
+      url:"http://127.0.0.1:5000/getallusers",
+      headers: {},
+    };
+    axios
+      .request(config)
+      .then((response) => {
+        if (response?.data) {
+          console.log("response data", response?.data?.all_users);
+          setUserList(response?.data?.all_users);
+
+        }
+        // console.log(JSON.stringify(response.data));
+      })
+      .catch((error) => {
+        console.log("aa")
+        console.log(error);
+      });
+  }, []);
 
   const searchUser = () => {
     let config = {
       method: "post",
       maxBodyLength: Infinity,
-      url: "http://travellerbackend.herokuapp.com/searchuser/" + searchText,
-      headers: {},
+     // url: "https://travellerbackend.herokuapp.com/searchuser/" + searchText,
+     url: "http://127.0.0.1:5000/searchuser/" + searchText,
+      
+     headers: {},
     };
 
     axios
@@ -136,7 +163,7 @@ function UserForm() {
             </tr>
           </thead>
           <tbody>
-            {resultData.map((item) => (
+            {userList.map((item) => (
               <tr>
                 <th scope="row">1</th>
                 <td>{item.username}</td>
